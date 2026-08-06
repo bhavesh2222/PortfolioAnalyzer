@@ -144,3 +144,50 @@ def show_allocation(rows):
         )
 
     console.print(table)        
+
+
+def show_historical_performance(
+    ticker,
+    period,
+    data
+):
+
+    returns = (
+        (
+            data["current_price"] -
+            data["start_price"]
+        )
+        / data["start_price"]
+    ) * 100
+
+    style = "green" if returns >= 0 else "red"
+
+    table = Table(title="Historical Performance")
+
+    table.add_column("Metric")
+    table.add_column("Value")
+
+    table.add_row("Ticker", ticker)
+    table.add_row("Period", period)
+    table.add_row(
+        "Start Price",
+        f"${data['start_price']:.2f}"
+    )
+    table.add_row(
+        "Current Price",
+        f"${data['current_price']:.2f}"
+    )
+    table.add_row(
+        "Highest Price",
+        f"${data['highest_price']:.2f}"
+    )
+    table.add_row(
+        "Lowest Price",
+        f"${data['lowest_price']:.2f}"
+    )
+    table.add_row(
+        "Return",
+        f"[{style}]{returns:.2f}%[/{style}]"
+    )
+
+    console.print(table)

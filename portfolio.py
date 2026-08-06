@@ -4,7 +4,8 @@ from views import (
     show_portfolio,
     show_analysis,
     show_allocation,
-    loading
+    loading,
+    show_historical_performance
 )
 class Portfolio:
 
@@ -281,3 +282,43 @@ class Portfolio:
                 return
 
         print(f"\n{ticker} not found in portfolio.")    
+
+    def historical_performance(self):
+
+        ticker = input("\nEnter ticker: ").upper()
+
+        print("\nChoose Period")
+        print("1. 1 Month")
+        print("2. 3 Months")
+        print("3. 6 Months")
+        print("4. 1 Year")
+
+        choice = input("\nChoice: ")
+
+        periods = {
+            "1": "1mo",
+            "2": "3mo",
+            "3": "6mo",
+            "4": "1y"
+        }
+
+        if choice not in periods:
+            print("\nInvalid option.")
+            return
+
+        try:
+
+            data = MarketData.get_historical_data(
+                ticker,
+                periods[choice]
+            )
+
+            show_historical_performance(
+                ticker,
+                periods[choice],
+                data
+            )
+
+        except Exception:
+
+            print("\nUnable to fetch historical data.")    

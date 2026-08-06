@@ -16,7 +16,8 @@ while True:
     print("6. Search Asset")
     print("7. Sort Portfolio")
     print("8. Edit Asset")
-    print("9. Exit")
+    print("9. Historical Performance")
+    print("10. Exit")
 
     choice = input("\nChoose option: ")
 
@@ -50,9 +51,13 @@ while True:
 
     elif choice == "8":
 
-        portfolio.edit_asset()            
+        portfolio.edit_asset()   
 
     elif choice == "9":
+
+        portfolio.historical_performance()          
+
+    elif choice == "10":
 
         Storage.save(portfolio)
 
