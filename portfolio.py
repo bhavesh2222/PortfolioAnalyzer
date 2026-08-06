@@ -7,6 +7,9 @@ from views import (
     loading,
     show_historical_performance
 )
+from report import Report
+
+
 class Portfolio:
 
     def __init__(self):
@@ -122,6 +125,8 @@ class Portfolio:
         }
 
         show_analysis(rows, summary)
+
+        return rows, summary
 
     def remove_asset(self, ticker):
 
@@ -321,4 +326,10 @@ class Portfolio:
 
         except Exception:
 
-            print("\nUnable to fetch historical data.")    
+            print("\nUnable to fetch historical data.")   
+
+    def export_report(self):
+
+        rows, summary = self.analyze_portfolio()
+
+        Report.export_pdf(rows, summary)         
